@@ -1,9 +1,6 @@
 package com.sparta.schedule.controller;
 
-import com.sparta.schedule.dto.SignUpRequestDto;
-import com.sparta.schedule.dto.SignUpResponseDto;
-import com.sparta.schedule.dto.UpdatePasswordRequestDto;
-import com.sparta.schedule.dto.UserResponseDto;
+import com.sparta.schedule.dto.*;
 import com.sparta.schedule.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -46,6 +43,13 @@ public class UserController {
     public ResponseEntity<Void> updatePassword(@PathVariable("id") Long id,
                                                @RequestBody UpdatePasswordRequestDto request) {
         userService.updatePassword(id, request.getOldPassword(), request.getNewPassword());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id,
+                                           @RequestBody DeleteUserRequestDto request) {
+        userService.deleteUser(id, request.getPassword());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

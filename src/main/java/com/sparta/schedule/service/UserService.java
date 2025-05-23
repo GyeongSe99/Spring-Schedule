@@ -85,10 +85,29 @@ public class UserService {
 
         User findUser = userRepository.findByIdOrElseThrow(id);
 
-        if(!findUser.getPassword().equals(oldPassword)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
-        }
+        this.verifyPasswordMatch(oldPassword, findUser.getPassword());
 
         findUser.updatePassword(newPassword);
+    }
+
+    public void deleteUser(Long id, String inputPassword) {
+
+        User findUser = userRepository.findByIdOrElseThrow(id);
+
+        this.verifyPasswordMatch(inputPassword, findUser.getPassword());
+
+        userRepository.deleteById(id);
+    }
+
+    /**
+     * 입력받은 비밀번호와 기존의 비밀번호의 일치여부에 따른 예외 처리
+     *
+     * @param inputPassword 입력받은 비밀번호
+     * @param savedPassword 기존의 비밀번호
+     */
+    private void verifyPasswordMatch(String inputPassword, String savedPassword) {
+        if(!inputPassword.equals(savedPassword)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+        }
     }
 }
