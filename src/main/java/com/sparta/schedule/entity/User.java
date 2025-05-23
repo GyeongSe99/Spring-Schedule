@@ -1,12 +1,15 @@
 package com.sparta.schedule.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class User extends BaseEntity{
 
     @Id
@@ -21,4 +24,11 @@ public class User extends BaseEntity{
 
     @Column(nullable = false)
     private String email;
+
+    @Builder
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }
