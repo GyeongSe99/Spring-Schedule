@@ -8,7 +8,6 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 public class User extends BaseEntity{
 
@@ -30,5 +29,9 @@ public class User extends BaseEntity{
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
     }
 }

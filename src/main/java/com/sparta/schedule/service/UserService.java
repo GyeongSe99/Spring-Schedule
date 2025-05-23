@@ -5,7 +5,10 @@ import com.sparta.schedule.dto.UserResponseDto;
 import com.sparta.schedule.entity.User;
 import com.sparta.schedule.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,7 +49,7 @@ public class UserService {
      */
     public UserResponseDto findById(Long id) {
 
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findByIdOrElseThrow(id);
 
         return UserResponseDto.builder()
                 .id(user.getId())
@@ -75,5 +78,17 @@ public class UserService {
                         .updatedAt(user.getUpdatedAt())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updatePassword(Long id, String oldPassword, String newPassword) {
+
+        User findUser = userRepository.findByIdOrElseThrow(id);
+
+        if(!findUser.getPassword().equals(oldPassword)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+        }
+
+        findUser.updatePassword(newPassword);
     }
 }
