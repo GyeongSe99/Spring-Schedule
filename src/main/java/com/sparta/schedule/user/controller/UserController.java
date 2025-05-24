@@ -16,17 +16,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
-    public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto request) {
-
-        SignUpResponseDto response = userService.signUp(
-                request.getUsername(),
-                request.getPassword(),
-                request.getEmail()
-        );
-
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getUser(@PathVariable("id") Long id) {

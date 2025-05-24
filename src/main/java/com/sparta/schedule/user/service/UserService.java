@@ -20,27 +20,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    /**
-     * 회원가입
-     *
-     * @param username 사용자 이름
-     * @param password 사용자 비밀번호
-     * @param email    사용자 이메일
-     * @return 저장된 사용자 정보를 담은 SignUpResponseDto
-     */
-    public SignUpResponseDto signUp(String username, String password, String email) {
-        User user = new User(username, password, email);
 
-        User savedUser = userRepository.save(user);
-
-        return SignUpResponseDto.builder()
-                .id(savedUser.getId())
-                .username(savedUser.getUsername())
-                .email(savedUser.getEmail())
-                .createdAt(savedUser.getCreatedAt())
-                .updatedAt(savedUser.getUpdatedAt())
-                .build();
-    }
 
     /**
      * 사용자 ID로 사용자 정보를 조회
