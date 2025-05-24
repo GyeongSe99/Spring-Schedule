@@ -1,5 +1,6 @@
 package com.sparta.schedule.auth.service;
 
+import com.sparta.schedule.common.config.PasswordEncoder;
 import com.sparta.schedule.user.dto.SignUpResponseDto;
 import com.sparta.schedule.user.entity.User;
 import com.sparta.schedule.user.repository.UserRepository;
@@ -13,11 +14,13 @@ import org.springframework.web.server.ResponseStatusException;
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public User login(String email, String password) {
         User user = userRepository.findByEmailOrElseThrow(email);
+        String encodedPassword = passwordEncoder.encode(password);
 
-        if (!user.getPassword().equals(password)) {
+        if (!user.getPassword().equals(encodedPassword)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "이메일 또는 비밀번호가 일치하지 않습니다.");
         }
 
@@ -33,7 +36,9 @@ public class AuthService {
      * @return 저장된 사용자 정보를 담은 SignUpResponseDto
      */
     public SignUpResponseDto signUp(String username, String password, String email) {
-        User user = new User(username, password, email);
+
+        String encodedPassword = passwordEncoder.encode(password);
+        User user = new User(username, encodedPassword, email);
 
         User savedUser = userRepository.save(user);
 
