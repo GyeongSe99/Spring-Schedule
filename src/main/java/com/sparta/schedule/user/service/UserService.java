@@ -48,7 +48,7 @@ public class UserService {
      * @param id 조회할 사용자 ID
      * @return 사용자 정보를 담은 UserResponseDto
      */
-    public UserResponseDto findById(Long id) {
+    public UserResponseDto getUser(Long id) {
 
         User user = userRepository.findByIdOrElseThrow(id);
 
@@ -60,7 +60,7 @@ public class UserService {
      *
      * @return 여러명의 사용자 정보를 담은 리스트 형태의 UserResponseDto
      */
-    public List<UserResponseDto> findAll() {
+    public List<UserResponseDto> getUsers() {
 
         List<User> result = userRepository.findAll();
 

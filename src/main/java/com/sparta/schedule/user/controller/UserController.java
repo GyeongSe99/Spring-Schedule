@@ -29,13 +29,13 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> findById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+    public ResponseEntity<UserResponseDto> getUser(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDto>> findAll() {
-        List<UserResponseDto> response = userService.findAll();
+    public ResponseEntity<List<UserResponseDto>> getUsers() {
+        List<UserResponseDto> response = userService.getUsers();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
