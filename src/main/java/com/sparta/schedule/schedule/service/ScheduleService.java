@@ -22,4 +22,9 @@ public class ScheduleService {
 
         return ScheduleMapper.toDto(saved);
     }
+
+    public ScheduleDto getSchedule(Long id) {
+        Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
+        return ScheduleMapper.toDto(findSchedule);
+    }
 }
