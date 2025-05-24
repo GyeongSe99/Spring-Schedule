@@ -2,6 +2,7 @@ package com.sparta.schedule.schedule.controller;
 
 import com.sparta.schedule.schedule.dto.CreateScheduleRequestDto;
 import com.sparta.schedule.schedule.dto.ScheduleDto;
+import com.sparta.schedule.schedule.dto.UpdateScheduleRequestDto;
 import com.sparta.schedule.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,12 @@ public class ScheduleController {
     public ResponseEntity<List<ScheduleDto>> getSchedulesByUpdatedAtAndWriterId(@RequestParam(value = "updatedAt", required = false)LocalDate updatedAt,
                                                           @RequestParam(value = "writerId", required = false) Long writerId) {
         List<ScheduleDto> response = scheduleService.getSchedulesByUpdatedAtAndWriterId(updatedAt, writerId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ScheduleDto> updateSchedule(@PathVariable Long id, @RequestBody UpdateScheduleRequestDto request) {
+        ScheduleDto response = scheduleService.updateSchedule(id, request.getTitle(), request.getContents());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

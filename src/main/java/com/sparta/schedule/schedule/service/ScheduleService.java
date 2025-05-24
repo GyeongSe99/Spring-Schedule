@@ -7,6 +7,7 @@ import com.sparta.schedule.schedule.repository.ScheduleRepository;
 import com.sparta.schedule.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -39,5 +40,20 @@ public class ScheduleService {
         return result.stream()
                 .map(ScheduleMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public ScheduleDto updateSchedule(Long id, String title, String contents) {
+        Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
+
+        if (title != null) {
+            findSchedule.setTitle(title);
+        }
+        if (contents != null) {
+            findSchedule.setContents(contents);
+        }
+
+        Schedule savedSchedule = scheduleRepository.save(findSchedule);
+        return ScheduleMapper.toDto(savedSchedule);
     }
 }
