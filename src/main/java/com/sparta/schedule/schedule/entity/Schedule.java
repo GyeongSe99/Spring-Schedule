@@ -1,14 +1,16 @@
-package com.sparta.schedule.schedule;
+package com.sparta.schedule.schedule.entity;
 
 import com.sparta.schedule.common.BaseEntity;
 import com.sparta.schedule.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Schedule extends BaseEntity {
 
     @Id
@@ -25,4 +27,8 @@ public class Schedule extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public Schedule(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+    }
 }
