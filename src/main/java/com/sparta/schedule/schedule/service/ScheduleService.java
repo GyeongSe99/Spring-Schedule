@@ -56,4 +56,8 @@ public class ScheduleService {
         Schedule savedSchedule = scheduleRepository.save(findSchedule);
         return ScheduleMapper.toDto(savedSchedule);
     }
+
+    public void deleteSchedule(Long id) {
+        scheduleRepository.deleteById(id);
+    }
 }
