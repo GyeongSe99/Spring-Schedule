@@ -2,8 +2,8 @@ package com.sparta.schedule.auth.controller;
 
 import com.sparta.schedule.auth.dto.LoginRequestDto;
 import com.sparta.schedule.auth.service.AuthService;
-import com.sparta.schedule.user.dto.SignUpRequestDto;
-import com.sparta.schedule.user.dto.SignUpResponseDto;
+import com.sparta.schedule.auth.dto.SignUpRequestDto;
+import com.sparta.schedule.auth.dto.SignUpResponseDto;
 import com.sparta.schedule.user.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

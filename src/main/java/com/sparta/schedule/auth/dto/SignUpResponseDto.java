@@ -1,4 +1,4 @@
-package com.sparta.schedule.user.dto;
+package com.sparta.schedule.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
 package com.sparta.schedule.auth.service;
 
 import com.sparta.schedule.common.config.PasswordEncoder;
-import com.sparta.schedule.user.dto.SignUpResponseDto;
+import com.sparta.schedule.auth.dto.SignUpResponseDto;
 import com.sparta.schedule.user.entity.User;
 import com.sparta.schedule.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
