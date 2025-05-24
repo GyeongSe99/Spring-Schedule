@@ -1,6 +1,5 @@
 package com.sparta.schedule.user.service;
 
-import com.sparta.schedule.user.dto.SignUpResponseDto;
 import com.sparta.schedule.user.dto.UserResponseDto;
 import com.sparta.schedule.user.entity.User;
 import com.sparta.schedule.user.mapper.UserMapper;
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
-
 
 
     /**
@@ -75,7 +73,7 @@ public class UserService {
      * @param savedPassword 기존의 비밀번호
      */
     private void verifyPasswordMatch(String inputPassword, String savedPassword) {
-        if(!inputPassword.equals(savedPassword)) {
+        if (!inputPassword.equals(savedPassword)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
         }
     }
