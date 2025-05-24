@@ -3,6 +3,7 @@ package com.sparta.schedule.user.service;
 import com.sparta.schedule.user.dto.SignUpResponseDto;
 import com.sparta.schedule.user.dto.UserResponseDto;
 import com.sparta.schedule.user.entity.User;
+import com.sparta.schedule.user.mapper.UserMapper;
 import com.sparta.schedule.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -51,13 +52,7 @@ public class UserService {
 
         User user = userRepository.findByIdOrElseThrow(id);
 
-        return UserResponseDto.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .email(user.getEmail())
-                .createdAt(user.getCreatedAt())
-                .updatedAt(user.getUpdatedAt())
-                .build();
+        return UserMapper.toDto(user);
     }
 
     /**
@@ -70,13 +65,7 @@ public class UserService {
         List<User> result = userRepository.findAll();
 
         return result.stream()
-                .map(user -> UserResponseDto.builder()
-                        .id(user.getId())
-                        .username(user.getUsername())
-                        .email(user.getEmail())
-                        .createdAt(user.getCreatedAt())
-                        .updatedAt(user.getUpdatedAt())
-                        .build())
+                .map(UserMapper::toDto)
                 .collect(Collectors.toList());
     }
 
