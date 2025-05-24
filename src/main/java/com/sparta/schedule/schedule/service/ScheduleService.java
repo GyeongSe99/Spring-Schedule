@@ -8,6 +8,10 @@ import com.sparta.schedule.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
@@ -26,5 +30,14 @@ public class ScheduleService {
     public ScheduleDto getSchedule(Long id) {
         Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
         return ScheduleMapper.toDto(findSchedule);
+    }
+
+    public List<ScheduleDto> getSchedulesByUpdatedAtAndWriterId(LocalDate updatedAt, Long writerId) {
+
+        List<Schedule> result = scheduleRepository.findSchedulesByUpdatedAtAndWriterId(updatedAt, writerId);
+
+        return result.stream()
+                .map(ScheduleMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
