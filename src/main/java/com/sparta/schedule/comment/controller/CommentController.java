@@ -2,6 +2,7 @@ package com.sparta.schedule.comment.controller;
 
 import com.sparta.schedule.comment.dto.CommentDto;
 import com.sparta.schedule.comment.dto.CreateCommentRequestDto;
+import com.sparta.schedule.comment.dto.UpdateCommentRequestDto;
 import com.sparta.schedule.comment.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -40,6 +41,13 @@ public class CommentController {
     @GetMapping
     public ResponseEntity<List<CommentDto>> getCommentsByScheduleId(@RequestParam("scheduleId") Long scheduleId) {
         List<CommentDto> response = commentService.getCommentsByScheduleId(scheduleId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CommentDto> updateComment(@PathVariable Long id, @RequestBody @Valid UpdateCommentRequestDto request, HttpSession session) {
+        Long writerId = (Long) session.getAttribute("userId");
+        CommentDto response = commentService.updateComment(id, request.getComment(), writerId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
