@@ -8,16 +8,13 @@ import com.sparta.schedule.schedule.entity.Schedule;
 import com.sparta.schedule.schedule.repository.ScheduleRepository;
 import com.sparta.schedule.user.entity.User;
 import com.sparta.schedule.user.repository.UserRepository;
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
