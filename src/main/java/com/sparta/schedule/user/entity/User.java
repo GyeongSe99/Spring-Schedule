@@ -1,6 +1,6 @@
 package com.sparta.schedule.user.entity;
 
-import com.sparta.schedule.common.BaseEntity;
+import com.sparta.schedule.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
