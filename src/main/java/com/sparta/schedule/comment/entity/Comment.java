@@ -1,5 +1,6 @@
 package com.sparta.schedule.comment.entity;
 
+import com.sparta.schedule.common.entity.BaseEntity;
 import com.sparta.schedule.schedule.entity.Schedule;
 import com.sparta.schedule.user.entity.User;
 import jakarta.persistence.*;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Comment {
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
