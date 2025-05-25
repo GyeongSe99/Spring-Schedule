@@ -10,6 +10,7 @@ import com.sparta.schedule.user.entity.User;
 import com.sparta.schedule.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class CommentService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
 
-
+    @Transactional
     public CommentDto createComment(Long writerId, Long scheduleId, String comment) {
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(scheduleId);
         User user = userRepository.findByIdOrElseThrow(writerId);
@@ -33,4 +34,6 @@ public class CommentService {
 
         return CommentMapper.toDto(savedComment);
     }
+
+
 }
