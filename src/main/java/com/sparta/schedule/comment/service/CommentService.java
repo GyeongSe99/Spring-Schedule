@@ -57,12 +57,13 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentDto updateComment(Long id, String comment, Long writerId) {
+    public CommentDto updateComment(Long id, String comment, Long userId) {
         Comment findComment = commentRepository.findByIdOrElseThrow(id);
 
         // 작성자 일치 여부 확인
-        if (!findComment.getUser().getId().equals(writerId)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "작성자만 수정할 수 있습니다");
+        Long writerId = findComment.getSchedule().getUser().getId();
+        if (!writerId.equals(userId)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인 사용자와 작성자가 일치하지 않습니다.");
         }
 
         // 작성자가 일치할 경우 수정 가능
@@ -70,5 +71,17 @@ public class CommentService {
         Comment savedComment = commentRepository.save(findComment);
 
         return CommentMapper.toDto(savedComment);
+    }
+
+    public void deleteComment(Long id, Long userId) {
+        Comment findComment = commentRepository.findByIdOrElseThrow(id);
+
+        // 작성자 일치 여부 확인
+        Long writerId = findComment.getSchedule().getUser().getId();
+        if (!writerId.equals(userId)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인 사용자와 작성자가 일치하지 않습니다.");
+        }
+
+        commentRepository.deleteById(id);
     }
 }

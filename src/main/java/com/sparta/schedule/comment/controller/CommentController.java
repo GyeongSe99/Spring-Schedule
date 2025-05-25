@@ -46,8 +46,15 @@ public class CommentController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<CommentDto> updateComment(@PathVariable Long id, @RequestBody @Valid UpdateCommentRequestDto request, HttpSession session) {
-        Long writerId = (Long) session.getAttribute("userId");
-        CommentDto response = commentService.updateComment(id, request.getComment(), writerId);
+        Long userId = (Long) session.getAttribute("userId");
+        CommentDto response = commentService.updateComment(id, request.getComment(), userId);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteComment(@PathVariable Long id, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        commentService.deleteComment(id, userId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
