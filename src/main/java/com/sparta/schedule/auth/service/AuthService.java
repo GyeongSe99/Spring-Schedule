@@ -18,9 +18,8 @@ public class AuthService {
 
     public User login(String email, String password) {
         User user = userRepository.findByEmailOrElseThrow(email);
-        String encodedPassword = passwordEncoder.encode(password);
 
-        if (!user.getPassword().equals(encodedPassword)) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "이메일 또는 비밀번호가 일치하지 않습니다.");
         }
 

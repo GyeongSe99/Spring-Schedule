@@ -1,6 +1,7 @@
 package com.sparta.schedule.schedule.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,6 +14,6 @@ public class CreateScheduleRequestDto {
 
     private final String contents;
 
-    @NotBlank(message = "작성자 아이디를 입력해주세요.")
+    @NotNull(message = "작성자 ID는 필수입니다.")
     private final Long writerId;
 }

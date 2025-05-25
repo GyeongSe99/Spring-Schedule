@@ -2,6 +2,7 @@ package com.sparta.schedule.user.controller;
 
 import com.sparta.schedule.user.service.UserService;
 import com.sparta.schedule.user.dto.*;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +31,14 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Void> updatePassword(@PathVariable("id") Long id,
-                                               @RequestBody UpdatePasswordRequestDto request) {
+                                               @RequestBody @Valid UpdatePasswordRequestDto request) {
         userService.updatePassword(id, request.getOldPassword(), request.getNewPassword());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id,
-                                           @RequestBody DeleteUserRequestDto request) {
+                                           @RequestBody @Valid DeleteUserRequestDto request) {
         userService.deleteUser(id, request.getPassword());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

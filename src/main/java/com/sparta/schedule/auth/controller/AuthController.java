@@ -7,6 +7,7 @@ import com.sparta.schedule.auth.dto.SignUpResponseDto;
 import com.sparta.schedule.user.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody LoginRequestDto request, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Void> login(@RequestBody @Valid LoginRequestDto request, HttpServletRequest httpServletRequest) {
 
         User user = authService.login(request.getEmail(), request.getPassword());
         httpServletRequest.getSession().setAttribute("userId", user.getId());
@@ -31,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto request) {
+    public ResponseEntity<SignUpResponseDto> signUp(@RequestBody @Valid SignUpRequestDto request) {
 
         SignUpResponseDto response = authService.signUp(
                 request.getUsername(),

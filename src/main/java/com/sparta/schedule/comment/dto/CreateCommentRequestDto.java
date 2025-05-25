@@ -1,6 +1,7 @@
 package com.sparta.schedule.comment.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CreateCommentRequestDto {
 
-    @NotBlank(message = "일정 아이디를 입력해주세요.")
+    @NotNull(message = "일정 아이디는 필수 입니다.")
     private final Long scheduleId;
 
     @NotBlank(message = "댓글 내용을 입력해주세요.")

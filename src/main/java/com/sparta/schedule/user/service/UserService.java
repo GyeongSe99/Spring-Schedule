@@ -75,8 +75,7 @@ public class UserService {
      * @param savedPassword 기존의 비밀번호
      */
     private void verifyPasswordMatch(String inputPassword, String savedPassword) {
-        String encodedPassword = passwordEncoder.encode(inputPassword);
-        if (!encodedPassword.equals(savedPassword)) {
+        if (!passwordEncoder.matches(inputPassword, savedPassword)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
         }
     }
