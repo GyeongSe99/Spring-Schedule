@@ -36,4 +36,8 @@ public class CommentService {
     }
 
 
+    public CommentDto getComment(Long id) {
+        Comment findComment = commentRepository.findByIdOrElseThrow(id);
+        return CommentMapper.toDto(findComment);
+    }
 }

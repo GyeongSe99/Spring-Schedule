@@ -7,10 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/comments")
@@ -29,5 +26,11 @@ public class CommentController {
         CommentDto response = commentService.createComment(writerId, request.getScheduleId(), request.getComment());
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CommentDto> getComment(@PathVariable Long id) {
+        CommentDto response = commentService.getComment(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
